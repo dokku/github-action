@@ -1,0 +1,9 @@
+#!/bin/sh -l
+
+. "/bin/setup-ssh"
+
+echo ""
+log-info "Unlocking Dokku deployment";
+
+app=$(echo $REMOTE_URL | sed -e 's/.*\///')
+ssh -p ${ssh_port:=22} dokku@$ssh_host apps:unlock $app

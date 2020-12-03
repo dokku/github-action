@@ -1,0 +1,10 @@
+#!/bin/sh -l
+
+. "/bin/setup-ssh"
+
+echo ""
+log-info "Pushing to Dokku Host";
+
+git push $REMOTE_URL $GITHUB_SHA:refs/heads/$DEPLOY_BRANCH --force
+
+[ $? -eq 0 ]  || exit 1
