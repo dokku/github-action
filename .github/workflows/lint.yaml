@@ -1,0 +1,36 @@
+on: [push, pull_request]
+
+name: 'lint'
+
+jobs:
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone
+      uses: actions/checkout@v2
+    - name: run shellcheck
+      uses: ludeeus/action-shellcheck@d586102c117f97e63d7e3b56629d269efc9a7c60
+      # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
+
+  hadolint:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone
+      uses: actions/checkout@v2
+    - name: hadolint
+      uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b
+      # v1.1.0 => eb9b96be611b84830aa1babacfb7070ecd2a8b1b
+
+  markdown:
+    name: markdown
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone
+      uses: actions/checkout@v2
+    - name: markdown
+      uses: avto-dev/markdown-lint@6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
+      # v1.4.0 => 6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
+      with:
+        args: './README.md'
