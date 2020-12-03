@@ -8,7 +8,7 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 
 ## Inputs
 
-### `deploy_branch`
+### `branch`
 
 __Optional__. The branch to be deployed when pushing to Dokku (default to `master`). Useful when a [custom deploy branch](http://dokku.viewdocs.io/dokku/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
 
@@ -79,7 +79,7 @@ jobs:
     - name: Push to dokku
       uses: obrassard/action-dokku-deploy@v1.0.3
       with:
-        deploy_branch: 'master'
+        branch: 'master'
         remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
         ssh_host_key: ${{ secrets.SSH_HOST_KEY }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}

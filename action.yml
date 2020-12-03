@@ -6,7 +6,7 @@ branding:
   icon: 'upload-cloud'
   color: 'blue'
 inputs:
-  deploy_branch:
+  branch:
     description: 'The branch to be deployed when pushing to Dokku (default: master)'
     required: false
     default: "master"
@@ -27,7 +27,7 @@ runs:
   post-entrypoint: '/bin/dokku-unlock'
   post-if: cancelled()
   env:
+    BRANCH: ${{ inputs.branch }}
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
     REMOTE_URL: ${{ inputs.remote_url }}
-    DEPLOY_BRANCH: ${{ inputs.deploy_branch }}
