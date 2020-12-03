@@ -33,4 +33,5 @@ jobs:
       uses: avto-dev/markdown-lint@6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
       # v1.4.0 => 6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
       with:
+        rules: '.github/markdown-rules.yml'
         args: './README.md'
