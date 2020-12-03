@@ -14,6 +14,12 @@ __Optional__. The branch to be deployed when pushing to Dokku (default to `maste
 
 Example Value: `develop`
 
+### `push_flags`
+
+__Optional__. A string containing a set of flags to set on push. This may be used to enable force pushes, or trigger verbose log output from git.
+
+Example Value: `--force -vvv`
+
 ### `remote_url`
 
 **Required**. The dokku app's git repository url **(in SSH format)**.
@@ -80,6 +86,7 @@ jobs:
       uses: obrassard/action-dokku-deploy@v1.0.3
       with:
         branch: 'master'
+        push_flags: '--force -vvv'
         remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
         ssh_host_key: ${{ secrets.SSH_HOST_KEY }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
