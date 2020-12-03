@@ -1,6 +1,6 @@
 # dokku github-action
 
-Easily deploy an app to your Dokku Instance from GitHub
+Official Github Action for deploying apps to a Dokku installation via git push
 
 ## Requirements
 

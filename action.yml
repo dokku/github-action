@@ -1,6 +1,6 @@
 ---
 name: 'Dokku'
-description: 'Deploys an app via git push to a Dokku instance'
+description: 'Official Github Action for deploying apps to a Dokku installation via git push'
 author: 'Dokku'
 branding:
   icon: 'upload-cloud'
