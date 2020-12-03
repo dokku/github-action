@@ -41,7 +41,7 @@ dokku.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvS+lK38EEMdHGb...
 
 > :bulb: Tip : It is recommended to use [Encrypted Secrets](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to store sensitive information such as SSH Keys.
 
-**Required**. A private ssh key that has push access to your Dokku instance.
+**Required**. A private ssh key that has push access to the Dokku instance.
 
 Example Value:
 
@@ -55,12 +55,22 @@ zrrvVLniH+UTjreQkhbFVqLPnL44+LIo30/oQJPISLxMYmZnuwudPN6O6ubyb8MK
 -----END OPENSSH PRIVATE KEY-----
 ```
 
-## Example usage
+## Examples
 
-This action is particularly useful when triggered by new pushes:
+All examples below are functionally complete and can be copy-pasted into a `.github/workflows/deploy.yaml` file, with some minor caveats:
+
+- The `git_remote_url` should be changed to match the server and app.
+- An [Encrypted Secret](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) should be set on the Github repository with the name `SSH_PRIVATE_KEY` containing the contents of a private ssh key that has been added to the Dokku installation via the `dokku ssh-keys:add` command.
+- As pushing a git repository from a shallow clone does not work, all repository checkous should use a `fetch-depth` of `0`. All examples below have this option set correctly.
+
+For simplicity, each example is standalone, but may be combined as necessary to create the desired effect.
+
+### Simple Example
+
+Deploys a codebase on push or merge to master.
 
 ```yml
-name: 'Deploy to my Dokku instance'
+name: 'deploy'
 
 on:
   push:
@@ -71,23 +81,167 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-    - name: Cancel Previous Runs # Optional step
+    - name: Push to dokku
+      uses: dokku/dokku@master
+      with:
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+```
+
+### Cancel previous runs on new push
+
+This action is particularly useful when triggered by new pushes, and utilizes a third-party action.
+
+```yml
+name: 'deploy'
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.4.0
       with:
         access_token: ${{ github.token }}
 
-    - name: Cloning repo # This step is required
+    - name: Cloning repo
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0 # This is required or you will get an error regarding shallow pushes from Dokku
+        fetch-depth: 0
 
     - name: Push to dokku
-      uses: obrassard/action-dokku-deploy@v1.0.3
+      uses: dokku/dokku@master
       with:
-        branch: 'master'
-        git_push_flags: '--force -vvv'
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+```
+
+### Avoid SSH Host Keyscan
+
+By default, this action will scan the host for it's SSH host key and use that value directly. This may not be desirable for security compliance reasons.
+
+The `SSH_HOST_KEY` value can be retrieved by calling `ssh-keyscan -t rsa $HOST`, where `$HOST` is the Dokku server's hostname.
+
+```yml
+name: 'deploy'
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Push to dokku
+      uses: dokku/dokku@master
+      with:
         git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
         ssh_host_key: ${{ secrets.SSH_HOST_KEY }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+```
+
+### Specify a custom deploy branch
+
+Certain Dokku installations may use custom deploy branches other than `master`. In the following example, we push to the `develop` branch.
+
+```yml
+name: 'deploy'
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Push to dokku
+      uses: dokku/dokku@master
+      with:
+        branch: 'develop'
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+```
+
+### Verbose Push Logging
+
+Verbose client-side logging may be enabled with this method. Note that this does not enable trace mode on the deploy, and simply tells the `git` client to enable verbose log output
+
+```yml
+name: 'deploy'
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Push to dokku
+      uses: dokku/dokku@master
+      env:
+        GIT_SSH_COMMAND: 'ssh -vvv'
+      with:
+        git_push_flags: '-vvv'
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+```
+
+### Force Pushing
+
+If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
+
+```yml
+name: 'deploy'
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Push to dokku
+      uses: dokku/dokku@master
+      with:
+        git_push_flags: '--force'
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 ```
