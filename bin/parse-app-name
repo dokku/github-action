@@ -1,0 +1,4 @@
+#!/bin/sh -l
+set -e
+
+echo "$GIT_REMOTE_URL" | sed -e 's/.*\///'
