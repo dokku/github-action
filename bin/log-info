@@ -1,4 +1,5 @@
 #!/bin/sh -l
 set -e
 
-echo -e "\u001b[32m${@}\u001b[0m";
+message="$@"
+echo -e "\u001b[32m${message}\u001b[0m";
