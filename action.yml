@@ -1,4 +1,4 @@
-# action.yml
+---
 name: 'Dokku'
 description: 'Deploys an app via git push to a Dokku instance'
 author: 'Dokku'
@@ -28,6 +28,6 @@ runs:
   post-if: cancelled()
   env:
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
-    SSH_PRIVATE_KEY : ${{ inputs.ssh_private_key }}
-    REMOTE_URL : ${{ inputs.remote_url }}
-    DEPLOY_BRANCH : ${{ inputs.deploy_branch }}
+    SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
+    REMOTE_URL: ${{ inputs.remote_url }}
+    DEPLOY_BRANCH: ${{ inputs.deploy_branch }}
