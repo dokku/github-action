@@ -14,7 +14,7 @@ jobs:
       # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
 
   hadolint:
-    name: shellcheck
+    name: hadolint
     runs-on: ubuntu-latest
     steps:
     - name: clone
