@@ -6,5 +6,8 @@ set -e
 echo ""
 log-info "Unlocking Dokku deployment";
 
+ssh_port=$(parse-ssh-port)
+ssh_host=$(parse-ssh-host)
+
 app=$(echo $REMOTE_URL | sed -e 's/.*\///')
-ssh -p ${ssh_port:=22} dokku@$ssh_host apps:unlock $app
+ssh -p $ssh_port dokku@$ssh_host apps:unlock $app
