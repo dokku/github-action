@@ -1,4 +1,4 @@
 #!/bin/sh -l
 set -e
 
-echo "$REMOTE_URL" | sed -e 's/.*@//' -e 's/[:/].*//'
+echo "$GIT_REMOTE_URL" | sed -e 's/.*@//' -e 's/[:/].*//'

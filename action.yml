@@ -10,10 +10,10 @@ inputs:
     description: 'The branch to be deployed when pushing to Dokku (default: master)'
     required: false
     default: "master"
-  push_flags:
+  git_push_flags:
     description: "The dokku app's git repository url (in SSH format)"
     required: true
-  remote_url:
+  git_remote_url:
     description: "A string containing a set of flags to set on push"
     required: false
   ssh_host_key:
@@ -31,7 +31,7 @@ runs:
   post-if: cancelled()
   env:
     BRANCH: ${{ inputs.branch }}
-    PUSH_FLAGS: ${{ inputs.push_flags }}
-    REMOTE_URL: ${{ inputs.remote_url }}
+    GIT_PUSH_FLAGS: ${{ inputs.git_push_flags }}
+    GIT_REMOTE_URL: ${{ inputs.git_remote_url }}
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}

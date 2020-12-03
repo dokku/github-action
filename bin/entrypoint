@@ -6,4 +6,4 @@ setup-ssh
 echo ""
 log-info "Pushing to Dokku Host";
 
-git push "$PUSH_FLAGS" "$REMOTE_URL" "$GITHUB_SHA:refs/heads/$BRANCH" --force
+git push "$GIT_PUSH_FLAGS" "$GIT_REMOTE_URL" "$GITHUB_SHA:refs/heads/$BRANCH" --force
