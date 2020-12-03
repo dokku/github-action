@@ -5,9 +5,24 @@ log-info "Setting up SSH Key"
 mkdir -p /root/.ssh
 echo "$SSH_PRIVATE_KEY" | tr -d '\r' > /root/.ssh/id_rsa
 chmod 600 /root/.ssh/id_rsa
-ssh_host=$(echo $REMOTE_URL | sed -e 's/.*@//' -e 's/[:/].*//')
-# Extract port number. Defaults to port 22.
-ssh_port=$(echo $REMOTE_URL | sed -e 's/.*@//' -e 's/\/.*//' -ne 's/.*:\([0-9]*\)/\1/p')
-ssh-keyscan -H -p "${ssh_port:=22}" "$ssh_host" >> /root/.ssh/known_hosts
+chmod 700 /root/.ssh
+
+if [ -n "$SSH_HOST_KEY" ]; then
+  log-info "Adding SSH_HOST_KEY to known_hosts"
+  echo "$SSH_HOST_KEY" >> "/root/.ssh/known_hosts"
+  chmod 600 "/root/.ssh/known_hosts"
+else
+  ssh_host=$(echo $REMOTE_URL | sed -e 's/.*@//' -e 's/[:/].*//')
+  # Extract port number. Defaults to port 22.
+  ssh_port=$(echo $REMOTE_URL | sed -e 's/.*@//' -e 's/\/.*//' -ne 's/.*:\([0-9]*\)/\1/p')
+  if [ -z "$ssh_port" ]; then
+      ssh_port=22
+  fi
+
+  log-info "Generating SSH_HOST_KEY from ssh-keyscan against $ssh_host:$ssh_port"
+  ssh-keyscan -H -p "$ssh_port" "$ssh_host" >> /root/.ssh/known_hosts
+fi
+
+log-info "Adding SSH Key to ssh-agent"
 eval "$(ssh-agent -s)"
 ssh-add /root/.ssh/id_rsa

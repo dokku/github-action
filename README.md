@@ -10,7 +10,7 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 
 #### `deploy_branch`
 
-Optional. The branch to be deployed when pushing to Dokku (default to `master`). Useful when a [custom deploy branch](http://dokku.viewdocs.io/dokku/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
+__Optional__. The branch to be deployed when pushing to Dokku (default to `master`). Useful when a [custom deploy branch](http://dokku.viewdocs.io/dokku/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
 
 Example Value: `develop`
 
@@ -20,7 +20,20 @@ Example Value: `develop`
 
 Example Value: `ssh://dokku@dokku.myhost.ca:22/appname`
 
-#### `ssh_key`
+#### `ssh_host_key`
+
+__Optional__. The results of running `ssh-keyscan -t rsa $HOST`. The github-action will otherwise generate this on the fly via `ssh-keyscan`.
+
+Example Value:
+
+```
+# dokku.com:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1
+dokku.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvS+lK38EEMdHGb...
+```
+
+#### `ssh_private_key`
+
+> :bulb: Tip : It is recommended to use [Encrypted Secrets](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to store sensitive information such as SSH Keys.
 
 **Required**. A private ssh key that has push access to your Dokku instance.
 
@@ -36,8 +49,6 @@ zrrvVLniH+UTjreQkhbFVqLPnL44+LIo30/oQJPISLxMYmZnuwudPN6O6ubyb8MK
 -----END OPENSSH PRIVATE KEY-----
 
 ```
-
-> :bulb: Tip : It is recommended to use [Encrypted Secrets](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to store sensitive information such as SSH Keys.
 
 ## Example usage
 
@@ -71,5 +82,6 @@ jobs:
       with:
         deploy_branch: 'master'
         remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
-        ssh_key: ${{ secrets.SSH_KEY }}
+        ssh_host_key: ${{ secrets.SSH_HOST_KEY }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 ```

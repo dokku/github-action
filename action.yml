@@ -13,7 +13,11 @@ inputs:
   remote_url:
     description: "The dokku app's git repository url (in SSH format)"
     required: true
-  ssh_key:
+  ssh_host_key:
+    description: 'The results of running ssh-keyscan -t rsa $HOST.'
+    required: false
+    default: ""
+  ssh_private_key:
     description: 'A private SSH key that has push acces to your Dokku instance'
     required: true
 runs:
@@ -23,6 +27,7 @@ runs:
   post-entrypoint: '/bin/dokku-unlock'
   post-if: cancelled()
   env:
-    SSH_PRIVATE_KEY : ${{ inputs.ssh_key }}
+    SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
+    SSH_PRIVATE_KEY : ${{ inputs.ssh_private_key }}
     REMOTE_URL : ${{ inputs.remote_url }}
     DEPLOY_BRANCH : ${{ inputs.deploy_branch }}
