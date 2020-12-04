@@ -19,5 +19,6 @@ jobs:
       uses: dokku/dokku@master
       with:
         git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        # specify an alternative ssh host key
         ssh_host_key: ${{ secrets.SSH_HOST_KEY }}
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}

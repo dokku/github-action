@@ -17,9 +17,11 @@ jobs:
 
     - name: Push to dokku
       uses: dokku/dokku@master
+      # enable verbose ssh output
       env:
         GIT_SSH_COMMAND: 'ssh -vvv'
       with:
+        # enable verbose git output
         git_push_flags: '-vvv'
         git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
