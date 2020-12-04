@@ -20,6 +20,12 @@ __Optional__. The branch name that triggered the deploy. Automatically detected 
 
 Example Value: `develop`
 
+### `ci_commit`
+
+__Optional__. The commit sha that will be pushed. Automatically detected from `GITHUB_SHA`.
+
+Example Value: `0aa00d8dd7c971c121e3d1e471d0a35e1daf8abe`
+
 ### `command`
 
 __Optional__. The command to run for the action (default: deploy).

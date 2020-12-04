@@ -14,6 +14,10 @@ inputs:
     description: "The command to run for the action (default: detected from GITHUB_REF)"
     required: false
     default: ""
+  ci_commit:
+    description: "The commit sha that will be pushed (default: detected from GITHUB_SHA)"
+    required: false
+    default: ""
   command:
     description: "The command to run for the action (default: deploy)"
     required: false
@@ -44,6 +48,7 @@ runs:
   env:
     BRANCH: ${{ inputs.branch }}
     CI_BRANCH_NAME: ${{ inputs.ci_branch_name }}
+    CI_COMMIT: ${{ inputs.ci_commit }}
     COMMAND: ${{ inputs.command }}
     GIT_PUSH_FLAGS: ${{ inputs.git_push_flags }}
     GIT_REMOTE_URL: ${{ inputs.git_remote_url }}
