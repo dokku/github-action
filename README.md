@@ -12,7 +12,23 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 
 __Optional__. The branch to deploy when pushing to Dokku (default to `master`). Useful when a [custom deploy branch](http://dokku.viewdocs.io/dokku/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
 
+Example Value: `main`
+
+### `ci_branch_name`
+
+__Optional__. The branch name that triggered the deploy. Automatically detected from `GITHUB_REF`.
+
 Example Value: `develop`
+
+### `command`
+
+__Optional__. The command to run for the action (default: deploy).
+
+Valid Values:
+
+- `deploy`
+- `review-apps:create`: Used to create a review app - via `dokku apps:clone` - based on the `appname` configured in the `git_remote_url`. If the review app already exists, this action will not recreate the app. In both cases, the current commit will be pushed to the review app.
+- `review-apps:destroy`: Destroys an existing review app.
 
 ### `git_push_flags`
 
@@ -25,6 +41,15 @@ Example Value: `--force -vvv`
 **Required**. The dokku app's git repository url **(in SSH format)**.
 
 Example Value: `ssh://dokku@dokku.myhost.ca:22/appname`
+
+### `review_app_name`
+
+__Optional__. The name of the review app to create or destroy. Computed as `review-$APPNAME-$BRANCH_NAME` if not specified, where:
+
+- `$APPNAME`: The parsed app name from the `git_remote_url`
+- `$BRANCH_NAME`: The inflected git branch name
+
+Example Value: `review-appname`
 
 ### `ssh_host_key`
 
@@ -53,30 +78,6 @@ qPPZtAKoonmd86k8jbrSbNZ/4OBelbYO0pmED90xyFRLlzLr/99ZcBtilQ33MNAh
 SvhOFcCPizxFeuuJGYQhNlxVBWPj1Jl6ni6rBoHmbBhZCPCnhmenlBPVJcnUczyy
 zrrvVLniH+UTjreQkhbFVqLPnL44+LIo30/oQJPISLxMYmZnuwudPN6O6ubyb8MK
 -----END OPENSSH PRIVATE KEY-----
-```
-
-## Arguments
-
-Arguments are optional, but may change the behavior of the action when specified. The following are the currently supported arguments and examples on how to specify them.
-
-### `review-apps:create`
-
-Used to create a review app - via `dokku apps:clone` - based on the `appname` configured in the `git_remote_url`. If the review app already exists, this action will not recreate the app. In both cases, the current commit will be pushed to the review app. Takes a second required argument as the name of the review app to create.
-
-Example:
-
-```yaml
-args: review-apps:create appname-${{ github.event.pull_request.number }}
-```
-
-### `review-apps:destroy`
-
-Destroys a review app. Takes a second required argument as the name of the review app to destroy.
-
-Example:
-
-```yaml
-args: review-apps:destroy appname-${{ github.event.pull_request.number }}
 ```
 
 ## Examples

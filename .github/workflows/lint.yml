@@ -28,30 +28,6 @@ jobs:
           config: '.github/linters/.markdown-lint.yml'
           args: './README.md'
 
-  shellcheck:
-    name: shellcheck
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Run shellcheck
-        uses: ludeeus/action-shellcheck@d586102c117f97e63d7e3b56629d269efc9a7c60
-        # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
-
-  shfmt:
-    name: shfmt
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Run shfmt
-        uses: luizm/action-sh-checker@802b81f66b6c31ea423aa41ad4f49f4b7b869272
-        # v0.1.8 => 802b81f66b6c31ea423aa41ad4f49f4b7b869272
-        env:
-          SHFMT_OPTS: -l -d -i 2
-        with:
-          sh_checker_shellcheck_disable: true
-
   yamllint:
     name: yamllint
     runs-on: ubuntu-20.04
@@ -61,3 +37,5 @@ jobs:
       - name: Run yamllint
         uses: ibiqlik/action-yamllint@b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
         # v3.0.0 => b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
+        with:
+          config_file: '.github/linters/.yamllint.yml'

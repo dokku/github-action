@@ -9,17 +9,29 @@ inputs:
   branch:
     description: 'The branch to deploy when pushing to Dokku (default: master)'
     required: false
-    default: "master"
+    default: 'master'
+  ci_branch_name:
+    description: 'The command to run for the action (default: deploy)'
+    required: false
+    default: ''
+  command:
+    description: 'The command to run for the action (default: deploy)'
+    required: false
+    default: 'deploy'
   git_push_flags:
-    description: "The dokku app's git repository url (in SSH format)"
+    description: 'The dokku app's git repository url (in SSH format)''
     required: true
   git_remote_url:
-    description: "A string containing a set of flags to set on push"
+    description: 'A string containing a set of flags to set on push'
     required: false
+  review_app_name:
+    description: 'The name of the review app to create or destroy'
+    required: false
+    default: ''
   ssh_host_key:
-    description: 'The results of running ssh-keyscan -t rsa $HOST.'
+    description: 'The results of running `ssh-keyscan -t rsa $HOST`'
     required: false
-    default: ""
+    default: ''
   ssh_private_key:
     description: 'A private SSH key that has push acces to your Dokku instance'
     required: true
@@ -31,7 +43,10 @@ runs:
   post-if: cancelled()
   env:
     BRANCH: ${{ inputs.branch }}
+    CI_BRANCH_NAME: ${{ inputs.ci_branch_name }}
+    COMMAND: ${{ inputs.command }}
     GIT_PUSH_FLAGS: ${{ inputs.git_push_flags }}
     GIT_REMOTE_URL: ${{ inputs.git_remote_url }}
+    REVIEW_APP_NAME: ${{ inputs.review_app_name }}
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}

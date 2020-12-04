@@ -1,6 +1,0 @@
-#!/bin/sh -l
-set -e
-
-message="$*"
-echo ""
-echo "\u001b[32m${message}\u001b[0m"
