@@ -19,8 +19,8 @@ jobs:
 
       - name: Push to dokku
         uses: dokku/dokku@master
-        # creates a review app with the pull_request ID as the suffix
-        args: review-apps:create appname-${{ github.event.pull_request.number }}
+        # creates a review app
+        args: review-apps:create review-${{ github.event.pull_request.number }}
         with:
           git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -32,8 +32,8 @@ jobs:
     steps:
       - name: Destroy the review app
         uses: dokku/dokku@master
-        # destroys the review app with the pull_request ID as the suffix
-        args: review-apps:destroy appname-${{ github.event.pull_request.number }}
+        # destroys the review app
+        args: review-apps:destroy review-${{ github.event.pull_request.number }}
         with:
           git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
