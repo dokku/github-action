@@ -19,7 +19,7 @@ inputs:
     required: false
     default: 'deploy'
   git_push_flags:
-    description: 'The dokku app's git repository url (in SSH format)'
+    description: 'The dokku app\'s git repository url (in SSH format)'
     required: true
   git_remote_url:
     description: 'A string containing a set of flags to set on push'
