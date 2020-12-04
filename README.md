@@ -16,7 +16,7 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 - `ci_commit`: (_optional_) The commit sha that will be pushed. Automatically detected from `GITHUB_SHA`.
   - example value: `0aa00d8dd7c971c121e3d1e471d0a35e1daf8abe`
 - `command`: (_optional_) The command to run for the action.
-  - default: deploy
+  - default: `deploy`
   - valid values:
     - `deploy`
     - `review-apps:create`: Used to create a review app - via `dokku apps:clone` - based on the `appname` configured in the `git_remote_url`. If the review app already exists, this action will not recreate the app. In both cases, the current commit will be pushed to the review app.
@@ -24,7 +24,6 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 - `git_push_flags`: (_optional_) A string containing a set of flags to set on push. This may be used to enable force pushes, or trigger verbose log output from git.
   - example value: `--force -vvv`
 - `git_remote_url`: (**required**) The dokku app's git repository url in SSH format.
-  - required: true
   - example value: `ssh://dokku@dokku.myhost.ca:22/appname`
 - `review_app_name`: (_optional_) The name of the review app to create or destroy. Computed as `review-$APPNAME-$BRANCH_NAME` if not specified, where:
 
