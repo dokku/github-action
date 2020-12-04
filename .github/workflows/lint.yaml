@@ -1,3 +1,5 @@
+---
+# yamllint disable-line rule:truthy
 on: [push, pull_request]
 
 name: 'lint'
@@ -7,42 +9,41 @@ jobs:
     name: hadolint
     runs-on: ubuntu-latest
     steps:
-    - name: Clone
-      uses: actions/checkout@v2
-    - name: Run hadolint
-      uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b
-      # v1.1.0 => eb9b96be611b84830aa1babacfb7070ecd2a8b1b
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Run hadolint
+        uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b
+        # v1.1.0 => eb9b96be611b84830aa1babacfb7070ecd2a8b1b
 
   markdown-lint:
     name: markdown-lint
     runs-on: ubuntu-latest
     steps:
-    - name: Clone
-      uses: actions/checkout@v2
-    - name: Run markdown-lint
-      uses: avto-dev/markdown-lint@6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
-      # v1.4.0 => 6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
-      with:
-        config: '.github/markdown-lint-config.yml'
-        args: './README.md'
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Run markdown-lint
+        uses: avto-dev/markdown-lint@6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
+        # v1.4.0 => 6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
+        with:
+          config: '.github/markdown-lint-config.yml'
+          args: './README.md'
 
   shellcheck:
     name: shellcheck
     runs-on: ubuntu-latest
     steps:
-    - name: Clone
-      uses: actions/checkout@v2
-    - name: Run shellcheck
-      uses: ludeeus/action-shellcheck@d586102c117f97e63d7e3b56629d269efc9a7c60
-      # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
-
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@d586102c117f97e63d7e3b56629d269efc9a7c60
+        # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
 
   yamllint:
     name: yamllint
     runs-on: ubuntu-latest
     steps:
-    - name: Clone
-      uses: actions/checkout@v2
-    - name: Run yamllint
-      uses: ibiqlik/action-yamllint@b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
-      # v3.0.0 => b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Run yamllint
+        uses: ibiqlik/action-yamllint@b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
+        # v3.0.0 => b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
