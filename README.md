@@ -1,6 +1,6 @@
 # dokku github-action
 
-Official Github Action for deploying apps to a Dokku installation via git push
+Official Github Action for deploying apps to a Dokku installation
 
 ## Requirements
 
@@ -10,7 +10,7 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 
 ### `branch`
 
-__Optional__. The branch to be deployed when pushing to Dokku (default to `master`). Useful when a [custom deploy branch](http://dokku.viewdocs.io/dokku/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
+__Optional__. The branch to deploy when pushing to Dokku (default to `master`). Useful when a [custom deploy branch](http://dokku.viewdocs.io/dokku/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
 
 Example Value: `develop`
 

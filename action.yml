@@ -1,13 +1,13 @@
 ---
 name: 'Dokku'
-description: 'Official Github Action for deploying apps to a Dokku installation via git push'
+description: 'Official Github Action for deploying apps to a Dokku installation'
 author: 'Dokku'
 branding:
   icon: 'upload-cloud'
   color: 'blue'
 inputs:
   branch:
-    description: 'The branch to be deployed when pushing to Dokku (default: master)'
+    description: 'The branch to deploy when pushing to Dokku (default: master)'
     required: false
     default: "master"
   git_push_flags:
