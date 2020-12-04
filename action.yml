@@ -11,7 +11,7 @@ inputs:
     required: false
     default: 'master'
   ci_branch_name:
-    description: 'The command to run for the action (default: deploy)'
+    description: 'The command to run for the action (default: detected from GITHUB_REF)'
     required: false
     default: ''
   command:
@@ -19,7 +19,7 @@ inputs:
     required: false
     default: 'deploy'
   git_push_flags:
-    description: 'The dokku app's git repository url (in SSH format)''
+    description: 'The dokku app's git repository url (in SSH format)'
     required: true
   git_remote_url:
     description: 'A string containing a set of flags to set on push'
