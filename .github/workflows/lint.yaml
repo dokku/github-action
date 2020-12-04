@@ -14,7 +14,6 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
-          MARKDOWN_CONFIG_FILE: .github/markdown-lint-config.yml
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
