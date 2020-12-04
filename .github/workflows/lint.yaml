@@ -18,7 +18,3 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run hadolint
-        uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b
-        # v1.1.0 => eb9b96be611b84830aa1babacfb7070ecd2a8b1b
