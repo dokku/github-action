@@ -89,12 +89,12 @@ All examples below are functionally complete and can be copy-pasted into a `.git
 
 For simplicity, each example is standalone, but may be combined as necessary to create the desired effect.
 
-- [__Simple Example__](/example-workflows/simple.yml): Deploys a codebase on push or merge to master.
-- [__Cancel previous runs on new push__](/example-workflows/cancel-previous-runs.yml): This workflow is particularly useful when triggered by new pushes, and utilizes a third-party action.
-- [__Avoid SSH Host Keyscan__](/example-workflows/specify-ssh-host-key.yml): By default, this action will scan the host for it's SSH host key and use that value directly. This may not be desirable for security compliance reasons.
+- [__Simple Example__](/examples/github/simple.yml): Deploys a codebase on push or merge to master.
+- [__Cancel previous runs on new push__](/examples/github/cancel-previous-runs.yml): This workflow is particularly useful when triggered by new pushes, and utilizes a third-party action.
+- [__Avoid SSH Host Keyscan__](/examples/github/specify-ssh-host-key.yml): By default, this action will scan the host for it's SSH host key and use that value directly. This may not be desirable for security compliance reasons.
 
   The `SSH_HOST_KEY` value can be retrieved by calling `ssh-keyscan -t rsa $HOST`, where `$HOST` is the Dokku server's hostname.
-- [__Specify a custom deploy branch__:](/example-workflows/custom-deploy-branch.yml) Certain Dokku installations may use custom deploy branches other than `master`. In the following example, we push to the `develop` branch.
-- [__Verbose Push Logging__](/example-workflows/verbose-logging.yml): Verbose client-side logging may be enabled with this method. Note that this does not enable trace mode on the deploy, and simply tells the `git` client to enable verbose log output
-- [__Force Pushing__](/example-workflows/force-push.yml): If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
-- [__Review Apps__](/example-workflows/review-app.yml): Handles creation and deletion of review apps through use of `dokku apps:clone` and `dokku apps:destroy`. Review apps are a great way to allow folks to preview pull request changes before they get merged to production.
+- [__Specify a custom deploy branch__:](/examples/github/custom-deploy-branch.yml) Certain Dokku installations may use custom deploy branches other than `master`. In the following example, we push to the `develop` branch.
+- [__Verbose Push Logging__](/examples/github/verbose-logging.yml): Verbose client-side logging may be enabled with this method. Note that this does not enable trace mode on the deploy, and simply tells the `git` client to enable verbose log output
+- [__Force Pushing__](/examples/github/force-push.yml): If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
+- [__Review Apps__](/examples/github/review-app.yml): Handles creation and deletion of review apps through use of `dokku apps:clone` and `dokku apps:destroy`. Review apps are a great way to allow folks to preview pull request changes before they get merged to production.
