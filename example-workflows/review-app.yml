@@ -1,0 +1,38 @@
+---
+name: 'deploy'
+
+on:
+  # onl run this workflow on pull request events
+  pull_request
+
+jobs:
+  review_app:
+    runs-on: ubuntu-latest
+    # only run when a pull request is opened
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Push to dokku
+      uses: dokku/dokku@master
+      # creates a review app with the pull_request ID as the suffix
+      args: review-apps:create appname-${{ github.event.pull_request.number }}
+      with:
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  destroy_review_app:
+    runs-on: ubuntu-latest
+    # only run when a pull request is closed
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+    - name: Destroy the review app
+      uses: dokku/dokku@master
+      # destroys the review app with the pull_request ID as the suffix
+      args: review-apps:destroy appname-${{ github.event.pull_request.number }}
+      with:
+        git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
