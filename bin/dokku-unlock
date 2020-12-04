@@ -3,7 +3,7 @@ set -e
 
 setup-ssh
 
-log-info "Unlocking Dokku deployment";
+log-info "Unlocking Dokku deployment"
 
 ssh_port=$(parse-ssh-port)
 ssh_host=$(parse-ssh-host)

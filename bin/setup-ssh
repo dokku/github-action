@@ -4,20 +4,20 @@ set -e
 log-info "Setting up SSH Key"
 
 mkdir -p /root/.ssh
-echo "$SSH_PRIVATE_KEY" | tr -d '\r' > /root/.ssh/id_rsa
+echo "$SSH_PRIVATE_KEY" | tr -d '\r' >/root/.ssh/id_rsa
 chmod 600 /root/.ssh/id_rsa
 chmod 700 /root/.ssh
 
 if [ -n "$SSH_HOST_KEY" ]; then
   log-info "Adding SSH_HOST_KEY to known_hosts"
-  echo "$SSH_HOST_KEY" >> "/root/.ssh/known_hosts"
+  echo "$SSH_HOST_KEY" >>"/root/.ssh/known_hosts"
   chmod 600 "/root/.ssh/known_hosts"
 else
   ssh_port=$(parse-ssh-port)
   ssh_host=$(parse-ssh-host)
 
   log-info "Generating SSH_HOST_KEY from ssh-keyscan against $ssh_host:$ssh_port"
-  ssh-keyscan -H -p "$ssh_port" "$ssh_host" >> /root/.ssh/known_hosts
+  ssh-keyscan -H -p "$ssh_port" "$ssh_host" >>/root/.ssh/known_hosts
 fi
 
 log-info "Adding SSH Key to ssh-agent"
