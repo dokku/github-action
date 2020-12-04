@@ -3,16 +3,6 @@ on: [push, pull_request]
 name: 'lint'
 
 jobs:
-  shellcheck:
-    name: shellcheck
-    runs-on: ubuntu-latest
-    steps:
-    - name: Clone
-      uses: actions/checkout@v2
-    - name: Run shellcheck
-      uses: ludeeus/action-shellcheck@d586102c117f97e63d7e3b56629d269efc9a7c60
-      # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
-
   hadolint:
     name: hadolint
     runs-on: ubuntu-latest
@@ -23,8 +13,8 @@ jobs:
       uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b
       # v1.1.0 => eb9b96be611b84830aa1babacfb7070ecd2a8b1b
 
-  markdown:
-    name: markdown
+  markdown-lint:
+    name: markdown-lint
     runs-on: ubuntu-latest
     steps:
     - name: Clone
@@ -35,3 +25,24 @@ jobs:
       with:
         config: '.github/markdown-lint-config.yml'
         args: './README.md'
+
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone
+      uses: actions/checkout@v2
+    - name: Run shellcheck
+      uses: ludeeus/action-shellcheck@d586102c117f97e63d7e3b56629d269efc9a7c60
+      # 1.0.0 => d586102c117f97e63d7e3b56629d269efc9a7c60
+
+
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone
+      uses: actions/checkout@v2
+    - name: Run yamllint
+      uses: ibiqlik/action-yamllint@
+      # v3.0.0 => b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
