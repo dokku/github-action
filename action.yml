@@ -24,10 +24,10 @@ inputs:
     default: "deploy"
   git_push_flags:
     description: "A string containing a set of flags to set on push"
-    required: true
+    required: false
   git_remote_url:
     description: "The dokku app's git repository url (in SSH format)"
-    required: false
+    required: true
   review_app_name:
     description: "The name of the review app to create or destroy"
     required: false
