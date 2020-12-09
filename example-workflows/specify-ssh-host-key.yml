@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/dokku@master
+        uses: dokku/github-action@master
         with:
           git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
           # specify an alternative ssh host key
