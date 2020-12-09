@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/dokku@master
+        uses: dokku/github-action@master
         with:
           # create a review app
           command: review-apps:create
@@ -33,7 +33,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
       - name: Destroy the review app
-        uses: dokku/dokku@master
+        uses: dokku/github-action@master
         with:
           # destroy a review app
           command: review-apps:destroy

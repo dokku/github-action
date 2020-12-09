@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/dokku@master
+        uses: dokku/github-action@master
         with:
           # specify the `main` branch as the remote branch to push to
           branch: 'main'

@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/dokku@master
+        uses: dokku/github-action@master
         # enable verbose ssh output
         env:
           GIT_SSH_COMMAND: 'ssh -vvv'
