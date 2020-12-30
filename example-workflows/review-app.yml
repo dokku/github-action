@@ -22,7 +22,7 @@ jobs:
         with:
           # create a review app
           command: review-apps:create
-          git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+          git_remote_url: 'ssh://dokku@dokku.me:22/appname'
           # specify a name for the review app
           review_app_name: review-appname-${{ github.event.pull_request.number }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -37,7 +37,7 @@ jobs:
         with:
           # destroy a review app
           command: review-apps:destroy
-          git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+          git_remote_url: 'ssh://dokku@dokku.me:22/appname'
           # specify a name for the review app
           review_app_name: review-appname-${{ github.event.pull_request.number }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
