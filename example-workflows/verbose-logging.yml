@@ -24,5 +24,5 @@ jobs:
         with:
           # enable verbose git output
           git_push_flags: '-vvv'
-          git_remote_url: 'ssh://dokku@dokku.myhost.ca:22/appname'
+          git_remote_url: 'ssh://dokku@dokku.me:22/appname'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
