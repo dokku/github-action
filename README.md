@@ -75,3 +75,10 @@ For simplicity, each example is standalone, but may be combined as necessary to 
 - [Force Pushing](/example-workflows/force-push.yml): If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
 - [Review Apps](/example-workflows/review-app.yml): Handles creation and deletion of review apps through use of `dokku apps:clone` and `dokku apps:destroy`. Review apps are a great way to allow folks to preview pull request changes before they get merged to production.
 - [Deploy Using a Remote Docker Image](/example-workflows/remote-docker-image.yml): Build and push your app to a remote docker registry and deploy your app using the remote docker image.
+
+  - You'll need to authenticate with the registry on your server. Use the [dokku-registry](https://github.com/dokku/dokku-registry) plugin to achieve this.
+  - This example uses a moving tag called `latest`. To prevent docker using a cached image you need to add `--no-cache --pull` build arguments to your app:
+
+    ```sh
+    dokku docker-options:add app build "--no-cache --pull"
+    ```
