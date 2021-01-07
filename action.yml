@@ -40,6 +40,9 @@ inputs:
   ssh_private_key:
     description: "A private SSH key that has push acces to your Dokku instance"
     required: true
+  app_config:
+    description: "App environment variables"
+    required: false
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -56,3 +59,4 @@ runs:
     REVIEW_APP_NAME: ${{ inputs.review_app_name }}
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
+    APP_CONFIG: ${{ inputs.app_config }}

@@ -55,6 +55,9 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
     -----END OPENSSH PRIVATE KEY-----
     ```
 
+- `app_config`: (_optional_)  A string containing a list of app environment variables.
+  - example value: `KEY1=VALUE1 KEY2=VALUE2`
+
 ## Examples
 
 All examples below are functionally complete and can be copy-pasted into a `.github/workflows/deploy.yaml` file, with some minor caveats:
@@ -74,3 +77,4 @@ For simplicity, each example is standalone, but may be combined as necessary to 
 - [Verbose Push Logging](/example-workflows/verbose-logging.yml): Verbose client-side logging may be enabled with this method. Note that this does not enable trace mode on the deploy, and simply tells the `git` client to enable verbose log output
 - [Force Pushing](/example-workflows/force-push.yml): If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
 - [Review Apps](/example-workflows/review-app.yml): Handles creation and deletion of review apps through use of `dokku apps:clone` and `dokku apps:destroy`. Review apps are a great way to allow folks to preview pull request changes before they get merged to production.
+- [App Config](/example-workflows/app-config.yml): Sets app config before deploying the app
