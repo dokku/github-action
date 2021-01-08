@@ -34,7 +34,20 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+      ## This example show how to use a moving tag "latest".
+      ## To prevent docker using a cached image you need to add "--no-cache --pull" build arguments to your app:
+      ## `dokku docker-options:add app build "--no-cache --pull"`
+      ##
+      # - name: Build and push docker image using latest tag
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: true
+      #     platforms: linux/amd64
+      #     tags: ghcr.io/${{ github.repository }}:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,7 +65,7 @@ jobs:
           commit=$(git rev-parse HEAD 2>/dev/null || true)
           echo ::set-output name=commit_sha::$commit
         env:
-          IMAGE_URL: ghcr.io/${{ github.repository }}:latest
+          IMAGE_URL: ghcr.io/${{ github.repository }}:${{ github.sha }}
 
       - name: Push to dokku
         uses: dokku/github-action@master

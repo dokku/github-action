@@ -77,8 +77,3 @@ For simplicity, each example is standalone, but may be combined as necessary to 
 - [Deploy Using a Remote Docker Image](/example-workflows/remote-docker-image.yml): Build and push your app to a remote docker registry and deploy your app using the remote docker image.
 
   - You'll need to authenticate with the registry on your server. Use the [dokku-registry](https://github.com/dokku/dokku-registry) plugin to achieve this.
-  - This example uses a moving tag called `latest`. To prevent docker using a cached image you need to add `--no-cache --pull` build arguments to your app:
-
-    ```sh
-    dokku docker-options:add app build "--no-cache --pull"
-    ```
