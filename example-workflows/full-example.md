@@ -12,8 +12,7 @@
 
  Create a file in your repository `.github/workflows/deploy-production` and push to GitHub.
 
- ```
- yaml
+ ``` yaml
  ---
  name: 'deploy-production'
 
