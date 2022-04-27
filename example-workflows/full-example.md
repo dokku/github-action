@@ -1,4 +1,3 @@
-
  # Full example
 
  This example assumes that the GitHub repository default branch is `main` and not `master` (GitHub's default for new repos since Oct 2020), and Dokku is configured to match this by deploying the `main` branch of all apps i.e. `dokku git:set --global deploy-branch main` has previously been run.
