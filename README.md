@@ -21,6 +21,10 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
     - `deploy`
     - `review-apps:create`: Used to create a review app - via `dokku apps:clone` - based on the `appname` configured in the `git_remote_url`. If the review app already exists, this action will not recreate the app. In both cases, the current commit will be pushed to the review app.
     - `review-apps:destroy`: Destroys an existing review app.
+- `deploy_docker_image`:  (_optional_) A docker image to deploy via `git:from-image`.
+  - example value: `dokku/test-app:1`
+- `deploy_user_name`:  (_optional_) A username to use when deploying a docker image
+- `deploy_user_email`:  (_optional_) The email to use when deploying a docker image.
 - `git_push_flags`: (_optional_) A string containing a set of flags to set on push. This may be used to enable force pushes, or trigger verbose log output from git.
   - example value: `--force -vvv`
 - `git_remote_url`: (**required**) The dokku app's git repository url in SSH format.
