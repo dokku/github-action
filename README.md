@@ -66,6 +66,7 @@ All examples below are functionally complete and can be copy-pasted into a `.git
 For simplicity, each example is standalone, but may be combined as necessary to create the desired effect.
 
 - [Simple Example](/example-workflows/simple.yml): Deploys a codebase on push or merge to master.
+- [Build in CI and Deploy an image](/example-workflows/build-and-deploy.yml): Builds a docker image in CI, pushes the image to the remote Docker Hub repository, and then notifies Dokku to deploy the built image.
 - [Cancel previous runs on new push](/example-workflows/cancel-previous-runs.yml): This workflow is particularly useful when triggered by new pushes, and utilizes a third-party action.
 - [Avoid SSH Host Keyscan](/example-workflows/specify-ssh-host-key.yml): By default, this action will scan the host for it's SSH host key and use that value directly. This may not be desirable for security compliance reasons.
 

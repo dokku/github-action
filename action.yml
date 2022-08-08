@@ -22,6 +22,18 @@ inputs:
     description: "The command to run for the action (default: deploy)"
     required: false
     default: "deploy"
+  deploy_docker_image:
+    description: "A docker image to deploy via `git:from-image`"
+    required: false
+    default: ""
+  deploy_user_name:
+    description: "A username to use when deploying a docker image"
+    required: false
+    default: ""
+  deploy_user_email:
+    description: "The email to use when deploying a docker image"
+    required: false
+    default: ""
   git_push_flags:
     description: "A string containing a set of flags to set on push"
     required: false
@@ -51,6 +63,9 @@ runs:
     CI_BRANCH_NAME: ${{ inputs.ci_branch_name }}
     CI_COMMIT: ${{ inputs.ci_commit }}
     COMMAND: ${{ inputs.command }}
+    DEPLOY_DOCKER_IMAGE: ${{ inputs.deploy_docker_image }}
+    DEPLOY_USER_NAME: ${{ inputs.deploy_user_name }}
+    DEPLOY_USER_EMAIL: ${{ inputs.deploy_user_email }}
     GIT_PUSH_FLAGS: ${{ inputs.git_push_flags }}
     GIT_REMOTE_URL: ${{ inputs.git_remote_url }}
     REVIEW_APP_NAME: ${{ inputs.review_app_name }}
