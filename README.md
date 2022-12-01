@@ -59,6 +59,9 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
     -----END OPENSSH PRIVATE KEY-----
     ```
 
+- `trace`: (_optional_) Allows users to debug what the action is performing by enabling shell trace mode
+  - example value: `1`
+
 ## Examples
 
 All examples below are functionally complete and can be copy-pasted into a `.github/workflows/deploy.yaml` file, with some minor caveats:
@@ -76,7 +79,7 @@ For simplicity, each example is standalone, but may be combined as necessary to 
 
   The `SSH_HOST_KEY` value can be retrieved by calling `ssh-keyscan -t rsa $HOST`, where `$HOST` is the Dokku server's hostname.
 - [Specify a custom deploy branch](/example-workflows/custom-deploy-branch.yml): Certain Dokku installations may use custom deploy branches other than `master`. In the following example, we push to the `develop` branch.
-- [Verbose Push Logging](/example-workflows/verbose-logging.yml): Verbose client-side logging may be enabled with this method. Note that this does not enable trace mode on the deploy, and simply tells the `git` client to enable verbose log output
+- [Verbose Push Logging](/example-workflows/verbose-logging.yml): Verbose client-side logging may be enabled with this method, as well as trace mode for all shell command output. Note that this does not enable trace mode on the remote deploy, and simply tells the `git` client to enable verbose log output.
 - [Force Pushing](/example-workflows/force-push.yml): If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
 - [Review Apps](/example-workflows/review-app.yml): Handles creation and deletion of review apps through use of `dokku apps:clone` and `dokku apps:destroy`. Review apps are a great way to allow folks to preview pull request changes before they get merged to production.
   - Placing a shell script at `bin/ci-pre-deploy` can be used to reconfigure the app, as shown in [this example](/example-workflows/review-app/ci-pre-deploy).
