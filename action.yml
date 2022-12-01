@@ -52,6 +52,10 @@ inputs:
   ssh_private_key:
     description: "A private SSH key that has push acces to your Dokku instance"
     required: true
+  trace:
+    description: "Allows users to debug what the action is performing by enabling shell trace mode"
+    required: false
+    default: ""
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -71,3 +75,4 @@ runs:
     REVIEW_APP_NAME: ${{ inputs.review_app_name }}
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
+    TRACE: ${{ inputs.trace }}
