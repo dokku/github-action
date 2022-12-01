@@ -58,6 +58,7 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
     zrrvVLniH+UTjreQkhbFVqLPnL44+LIo30/oQJPISLxMYmZnuwudPN6O6ubyb8MK
     -----END OPENSSH PRIVATE KEY-----
     ```
+
 - `trace`: (_optional_) Allows users to debug what the action is performing by enabling shell trace mode
   - example value: `1`
 
