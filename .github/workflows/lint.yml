@@ -35,7 +35,7 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Run yamllint
-        uses: ibiqlik/action-yamllint@b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
+        uses: ibiqlik/action-yamllint@2576378a8e339169678f9939646ee3ee325e845c
         # v3.0.0 => b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
         with:
           config_file: '.github/linters/.yamllint.yml'
