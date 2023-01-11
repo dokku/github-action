@@ -22,7 +22,7 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Run markdown-lint
-        uses: avto-dev/markdown-lint@6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
+        uses: avto-dev/markdown-lint@04d43ee9191307b50935a753da3b775ab695eceb
         # v1.4.0 => 6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
         with:
           config: '.github/linters/.markdown-lint.yml'
