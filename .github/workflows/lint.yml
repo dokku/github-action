@@ -12,7 +12,7 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Run hadolint
-        uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b
+        uses: brpaz/hadolint-action@c27bd9edc1e95eed30474db8f295ff5807ebca14
         # v1.1.0 => eb9b96be611b84830aa1babacfb7070ecd2a8b1b
 
   markdown-lint:
