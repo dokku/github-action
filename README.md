@@ -8,7 +8,7 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
 
 ## Inputs
 
-- `branch`: (_optional_) The branch to deploy when pushing to Dokku. Useful when a [custom deploy branch](http://dokku.com/docs/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
+- `branch`: (_optional_) The branch to deploy when pushing to Dokku. Useful when a [custom deploy branch](https://dokku.com/docs/deployment/methods/git/#changing-the-deploy-branch) is set on Dokku.
   - default: `master`
   - example value: `main`
 - `ci_branch_name`: (_optional_) The branch name that triggered the deploy. Automatically detected from `GITHUB_REF`.
