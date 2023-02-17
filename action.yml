@@ -50,7 +50,7 @@ inputs:
     required: false
     default: ""
   ssh_private_key:
-    description: "A private SSH key that has push acces to your Dokku instance"
+    description: "A private SSH key that has push access to your Dokku instance"
     required: true
   trace:
     description: "Allows users to debug what the action is performing by enabling shell trace mode"
