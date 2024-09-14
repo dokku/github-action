@@ -59,6 +59,9 @@ Please note that this action is compatible with `dokku >= 0.11.6`.
     -----END OPENSSH PRIVATE KEY-----
     ```
 
+- `ssh_passphrase`: (_optional_) Passphrase to use when interacting with an SSH key that has a passphrase
+  - example value: `password`
+
 - `trace`: (_optional_) Allows users to debug what the action is performing by enabling shell trace mode
   - example value: `1`
 
