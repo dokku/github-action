@@ -52,6 +52,10 @@ inputs:
   ssh_private_key:
     description: "A private SSH key that has push access to your Dokku instance"
     required: true
+  ssh_passphrase:
+    description: "Passphrase to use when interacting with an SSH key that has a passphrase"
+    required: false
+    default: ""
   trace:
     description: "Allows users to debug what the action is performing by enabling shell trace mode"
     required: false
@@ -75,4 +79,5 @@ runs:
     REVIEW_APP_NAME: ${{ inputs.review_app_name }}
     SSH_HOST_KEY: ${{ inputs.ssh_host_key }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
+    SSH_PASSPHRASE: ${{ inputs.ssh_passphrase }}
     TRACE: ${{ inputs.trace }}
