@@ -1,14 +1,14 @@
 ---
-name: 'lint'
+name: "lint"
 
 # yamllint disable-line rule:truthy
 on:
   pull_request:
     branches:
-      - '*'
+      - "*"
   push:
     branches:
-      - 'master'
+      - "master"
 
 jobs:
   hadolint:
@@ -31,8 +31,8 @@ jobs:
         uses: avto-dev/markdown-lint@04d43ee9191307b50935a753da3b775ab695eceb
         # v1.4.0 => 6e6d4393411fbaae3c3aeee5661ba84a0352ed3b
         with:
-          config: '.github/linters/.markdown-lint.yml'
-          args: './README.md'
+          config: ".github/linters/.markdown-lint.yaml"
+          args: "./README.md"
 
   yamllint:
     name: yamllint
@@ -44,4 +44,4 @@ jobs:
         uses: ibiqlik/action-yamllint@2576378a8e339169678f9939646ee3ee325e845c
         # v3.0.0 => b2aeacc1b7eeb8c23e84bba320d04fb5d6a323ee
         with:
-          config_file: '.github/linters/.yamllint.yml'
+          config_file: ".github/linters/.yamllint.yaml"
