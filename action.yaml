@@ -6,6 +6,10 @@ branding:
   icon: "upload-cloud"
   color: "blue"
 inputs:
+  registry_mirrors:
+    description: 'Base URL for Docker image'
+    required: true
+    default: 'harbor.sistemasmas.cl/'
   branch:
     description: "The branch to deploy when pushing to Dokku (default: master)"
     required: false
@@ -81,3 +85,5 @@ runs:
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
     SSH_PASSPHRASE: ${{ inputs.ssh_passphrase }}
     TRACE: ${{ inputs.trace }}
+  args:
+    - ${{ inputs.registry_mirrors }}
