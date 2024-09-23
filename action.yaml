@@ -85,5 +85,6 @@ runs:
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
     SSH_PASSPHRASE: ${{ inputs.ssh_passphrase }}
     TRACE: ${{ inputs.trace }}
-  args:
-    - ${{ inputs.registry_mirrors }}
+    REGISTRY_MIRRORS: ${{ inputs.registry_mirrors }}
+  #args:
+  #  - ${{ inputs.registry_mirrors }}
