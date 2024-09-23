@@ -1,1 +1,1 @@
-FROM dokku/ci-docker-image:0.13.0
+FROM dokku/ci-docker-image:0.13.1
