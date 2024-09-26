@@ -1,3 +1,4 @@
+
 # dokku github-action
 
 Official Github Action for deploying apps to a Dokku installation
@@ -86,3 +87,20 @@ For simplicity, each example is standalone, but may be combined as necessary to 
 - [Force Pushing](/example-workflows/force-push.yaml): If the remote app has been previously pushed manually from a location other than CI, it may be necessary to enable force pushing to avoid git errors.
 - [Review Apps](/example-workflows/review-app.yaml): Handles creation and deletion of review apps through use of `dokku apps:clone` and `dokku apps:destroy`. Review apps are a great way to allow folks to preview pull request changes before they get merged to production.
   - Placing a shell script at `bin/ci-pre-deploy` can be used to reconfigure the app, as shown in [this example](/example-workflows/review-app/ci-pre-deploy).
+  
+  
+
+
+
+### License
+
+This project is licensed under the MIT License for the original code.
+
+However, this project includes code adapted from the [docker/buildx](https://github.com/docker/buildx) repository, which is licensed under the Apache 2.0 License.
+
+### Modifications made:
+- Changes have been made to the `context.ts` and `main.ts` files to adapt them for the Dokku deployment project.
+- The package manager has been switched from `yarn` to `npm`.
+
+The original code from `docker/buildx` and its modifications are distributed under the Apache 2.0 License, and the rest of the code is distributed under the MIT License.
+
