@@ -48,7 +48,7 @@ actionsToolkit.run(async () => {
         'run',
         '--rm',
         '-v',
-        `${process.env.GITHUB_WORKSPACE}:/repo`, // Monta el repositorio en /repo dentro del contenedor
+        `${process.env.GITHUB_WORKSPACE}:/`, // Monta el repositorio en la raíz del contenedor
         '-e',
         `SSH_PRIVATE_KEY=${input.ssh_private_key}`,
         '-e',
@@ -58,7 +58,7 @@ actionsToolkit.run(async () => {
         '-e',
         `CI_BRANCH_NAME=${input.ci_branch_name}`,
         '-e',
-        `CI_COMMIT=${input.ci_commit}`, // Aunque en teoría no necesitas pasar esto
+        `CI_COMMIT=${input.ci_commit}`,
         '-e',
         `COMMAND=${input.command}`,
         '-e',
