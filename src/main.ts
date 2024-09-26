@@ -47,6 +47,8 @@ actionsToolkit.run(async () => {
       [
         'run',
         '--rm',
+        '-v',
+        `${process.env.GITHUB_WORKSPACE}:/github/workspace`, // Monta el repositorio en /workspace
         '-e',
         `SSH_PRIVATE_KEY=${input.ssh_private_key}`,
         '-e',
