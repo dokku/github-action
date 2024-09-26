@@ -47,8 +47,6 @@ actionsToolkit.run(async () => {
       [
         'run',
         '--rm',
-        '-v',
-        `${process.env.GITHUB_WORKSPACE}:/`, // Monta el repositorio en la raíz del contenedor
         '-e',
         `SSH_PRIVATE_KEY=${input.ssh_private_key}`,
         '-e',
