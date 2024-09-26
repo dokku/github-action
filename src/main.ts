@@ -4,50 +4,50 @@
 
 import * as context from './context';
 import * as core from '@actions/core';
-import { Docker } from '@docker/actions-toolkit/lib/docker/docker';
+import {Docker} from '@docker/actions-toolkit/lib/docker/docker';
 import * as actionsToolkit from '@docker/actions-toolkit';
 
-actionsToolkit.run(
-  // main
-  async () => {
-    const input: context.Inputs = context.getInputs();
+actionsToolkit.run(async () => {
+  const input: context.Inputs = context.getInputs();
+  core.exportVariable('IMAGE', input.image);
+  core.exportVariable('BRANCH', input.branch);
+  core.exportVariable('CI_BRANCH_NAME', input.ci_branch_name);
+  core.exportVariable('CI_COMMIT', input.ci_commit);
 
-    await core.group(`Docker info`, async () => {
-      await Docker.printVersion();
-      await Docker.printInfo();
+  await core.group(`Docker info`, async () => {
+    await Docker.printVersion();
+    await Docker.printInfo();
+  });
+
+  await core.group(`Pulling Docker image for deployment`, async () => {
+    await Docker.getExecOutput(['pull', input.image], {
+      ignoreReturnCode: true
+    }).then(res => {
+      if (res.stderr.length > 0 && res.exitCode != 0) {
+        throw new Error(res.stderr.match(/(.*)\s*$/)?.[0]?.trim() ?? 'unknown error');
+      }
     });
+  });
 
-    await core.group(`Pulling Docker image for deployment`, async () => {
-      await Docker.getExecOutput(['pull', input.image], {
+  await core.group(`Deploying the app`, async () => {
+    await Docker.getExecOutput(
+      [
+        'run',
+        '--rm',
+        '-e',
+        `SSH_PRIVATE_KEY=${input.ssh_private_key}`,
+        input.image,
+        'dokku-deploy',
+        input.git_remote_url,
+        input.branch
+      ],
+      {
         ignoreReturnCode: true
-      }).then(res => {
-        if (res.stderr.length > 0 && res.exitCode != 0) {
-          throw new Error(res.stderr.match(/(.*)\s*$/)?.[0]?.trim() ?? 'unknown error');
-        }
-      });
+      }
+    ).then(res => {
+      if (res.stderr.length > 0 && res.exitCode != 0) {
+        throw new Error(res.stderr.match(/(.*)\s*$/)?.[0]?.trim() ?? 'unknown error');
+      }
     });
-
-    await core.group(`Deploying the app`, async () => {
-      // Use the pulled image to execute Dokku commands
-      await Docker.getExecOutput(
-        [
-          'run',
-          '--rm',
-          '-e',
-          `SSH_PRIVATE_KEY=${input.ssh_private_key}`,
-          input.image,
-          'dokku-deploy',
-          input.git_remote_url,
-          input.branch
-        ],
-        {
-          ignoreReturnCode: true
-        }
-      ).then(res => {
-        if (res.stderr.length > 0 && res.exitCode != 0) {
-          throw new Error(res.stderr.match(/(.*)\s*$/)?.[0]?.trim() ?? 'unknown error');
-        }
-      });
-    });
-  }
-);
+  });
+});
