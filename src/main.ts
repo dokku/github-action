@@ -9,10 +9,23 @@ import * as actionsToolkit from '@docker/actions-toolkit';
 
 actionsToolkit.run(async () => {
   const input: context.Inputs = context.getInputs();
+
+  // Exportar todas las variables de entorno
   core.exportVariable('IMAGE', input.image);
   core.exportVariable('BRANCH', input.branch);
   core.exportVariable('CI_BRANCH_NAME', input.ci_branch_name);
   core.exportVariable('CI_COMMIT', input.ci_commit);
+  core.exportVariable('COMMAND', input.command);
+  core.exportVariable('DEPLOY_DOCKER_IMAGE', input.deploy_docker_image);
+  core.exportVariable('DEPLOY_USER_NAME', input.deploy_user_name);
+  core.exportVariable('DEPLOY_USER_EMAIL', input.deploy_user_email);
+  core.exportVariable('GIT_PUSH_FLAGS', input.git_push_flags);
+  core.exportVariable('GIT_REMOTE_URL', input.git_remote_url);
+  core.exportVariable('REVIEW_APP_NAME', input.review_app_name);
+  core.exportVariable('SSH_HOST_KEY', input.ssh_host_key);
+  core.exportVariable('SSH_PRIVATE_KEY', input.ssh_private_key);
+  core.exportVariable('SSH_PASSPHRASE', input.ssh_passphrase);
+  core.exportVariable('TRACE', input.trace);
 
   await core.group(`Docker info`, async () => {
     await Docker.printVersion();
