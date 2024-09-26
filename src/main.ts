@@ -9,8 +9,8 @@ import * as actionsToolkit from '@docker/actions-toolkit';
 
 actionsToolkit.run(async () => {
   const input: context.Inputs = context.getInputs();
+  core.info(`Git Remote URL: ${input.git_remote_url}`);
 
-  // Exportar todas las variables de entorno
   core.exportVariable('IMAGE', input.image);
   core.exportVariable('BRANCH', input.branch);
   core.exportVariable('CI_BRANCH_NAME', input.ci_branch_name);
