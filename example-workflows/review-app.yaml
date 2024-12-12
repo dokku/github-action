@@ -10,7 +10,7 @@ jobs:
   review_app:
     runs-on: ubuntu-latest
     # only run when a pull request is opened
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
     steps:
       - name: Cloning repo
         uses: actions/checkout@v4
@@ -23,6 +23,10 @@ jobs:
           # create a review app
           command: review-apps:create
           git_remote_url: 'ssh://dokku@dokku.me:22/appname'
+          # specify `--force` as a flag for git pushes
+          git_push_flags: '--force'
+          # specify the name of the branch, in cas you do not use master
+          # branch: main
           # specify a name for the review app
           review_app_name: review-appname-${{ github.event.pull_request.number }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
