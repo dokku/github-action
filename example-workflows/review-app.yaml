@@ -7,10 +7,31 @@ on:
   pull_request
 
 jobs:
-  review_app:
+  create_review_app:
     runs-on: ubuntu-latest
     # only run when a pull request is opened
-    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+      - name: Cloning repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create and push the review app
+        uses: dokku/github-action@master
+        with:
+          # create a review app
+          command: review-apps:create
+          git_remote_url: 'ssh://dokku@dokku.me:22/appname'
+          # specify a name for the review app
+          review_app_name: review-appname-${{ github.event.pull_request.number }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+
+  deploy_review_app:
+    runs-on: ubuntu-latest
+    # only run when a pull request is not opened or closed
+    if: github.event_name == 'pull_request' && github.event.action != 'opened' && github.event.action != 'closed'
     steps:
       - name: Cloning repo
         uses: actions/checkout@v4
@@ -21,7 +42,6 @@ jobs:
         uses: dokku/github-action@master
         with:
           # create a review app
-          command: review-apps:create
           git_remote_url: 'ssh://dokku@dokku.me:22/appname'
           # specify a name for the review app
           review_app_name: review-appname-${{ github.event.pull_request.number }}
