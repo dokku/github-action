@@ -1,1 +1,1 @@
-FROM dokku/ci-docker-image:0.16.0
+FROM dokku/ci-docker-image:0.17.0
