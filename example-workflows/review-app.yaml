@@ -52,10 +52,9 @@ jobs:
     # only run when a pull request is closed
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
+      # only needed if you have destroy hooks
       - name: Cloning repo
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Destroy the review app
         uses: dokku/github-action@master
